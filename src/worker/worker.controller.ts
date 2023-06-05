@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, Body } from '@nestjs/common';
 import { WorkerService } from './worker.service';
-import { CreateWorkerDto } from './dto/create-worker.dto';
-import { UpdateWorkerDto } from './dto/update-worker.dto';
+import { WorkerDTO } from './dto/create-worker.dto';
 
-@Controller('worker')
+@Controller('workers')
 export class WorkerController {
   constructor(private readonly workerService: WorkerService) {}
 
   @Post()
-  create(@Body() createWorkerDto: CreateWorkerDto) {
-    return this.workerService.create(createWorkerDto);
+  createWorker(@Body() workerDTO: WorkerDTO) {
+    return this.workerService.createWorker(workerDTO);
   }
 
   @Get()
-  findAll() {
-    return this.workerService.findAll();
+  findAllWorkers() {
+    return this.workerService.findAllWorkers();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.workerService.findOne(+id);
+  findWorkerById(@Param('id') id: number) {
+    return this.workerService.findWorkerById(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWorkerDto: UpdateWorkerDto) {
-    return this.workerService.update(+id, updateWorkerDto);
+  updateWorker(@Param('id') id: number, @Body() workerDTO: WorkerDTO) {
+    return this.workerService.updateWorker(id, workerDTO);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.workerService.remove(+id);
+  deleteWorker(@Param('id') id: number) {
+    return this.workerService.deleteWorker(id);
   }
 }
+
